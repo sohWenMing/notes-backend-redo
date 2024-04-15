@@ -6,7 +6,7 @@ const app = require('../app');
 const httpTest = require('supertest')(app);
 const { logger } = require('../utils/logging/logger');
 
-describe('test suite for database connections', async () => {
+describe.only('test suite for database connections', async () => {
     before(async() => {
         await NoteService.deleteAll();
         logger.info('DB cleared for database connections test');

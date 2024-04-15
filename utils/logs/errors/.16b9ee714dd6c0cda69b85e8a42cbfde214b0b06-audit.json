@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\SohWenMing\\notes-backend-redo\\utils\\logs\\errors\\.16b9ee714dd6c0cda69b85e8a42cbfde214b0b06-audit.json",
+    "files": [
+        {
+            "date": 1713149387220,
+            "name": "C:\\Users\\SohWenMing\\notes-backend-redo\\utils\\logs\\errors\\error-2024-04-15.log",
+            "hash": "939bfe854827c108e7afb2e49dd6998c6996da064081dfc13d6dabbefaa00f74"
+        }
+    ],
+    "hashType": "sha256"
+}
