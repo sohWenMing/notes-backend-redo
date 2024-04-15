@@ -21,5 +21,6 @@ class NoteService {
 }
 
 module.exports = {
-    NoteService: new NoteService
+    NoteService: new NoteService,
+    Note: Note
 };

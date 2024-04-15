@@ -1,9 +1,9 @@
-const { describe, it, before, after, beforeEach, afterEach } = require('node:test');
+const { describe, it, before, after } = require('node:test');
 const  assert  = require('node:assert');
 const { connectToDB, disconnectFromDB } = require('../db/mongoConnection');
 const { NoteService }  = require('../service/notes');
 const { Note } = require('../db/notes');
-const { logger } = require('../utils/logging/logger');
+// const { logger } = require('../utils/logging/logger');
 
 const contentText = 'This is the first note';
 const firstNote = new Note({
@@ -34,7 +34,7 @@ describe('database tests', async() => {
     });
     it('duplicate records should not be allowed', async() => {
         try {
-            const duplicateNote = await firstNote.save();
+            await firstNote.save();
         }
         catch(error) {
             const retrievedNotes = await NoteService.getAll();
@@ -49,7 +49,6 @@ describe('database tests', async() => {
             await emptyNote.save();
         }
         catch(error) {
-            console.log(error);
             const retrievedNotes = await NoteService.getAll();
             assert.strictEqual(retrievedNotes.length, 1);
 
