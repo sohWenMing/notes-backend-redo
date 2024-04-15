@@ -1,21 +1,28 @@
-const { it, after, before, describe } = require('node:test');
+const { it, after, before, describe, beforeEach } = require('node:test');
 const assert = require('node:assert');
 const { disconnectFromDB } = require('../db/mongoConnection');
-const { NoteService } = require('../service/notes');
 const app = require('../app');
 const httpTest = require('supertest')(app);
 const { logger } = require('../utils/logging/logger');
+const { clearDB, initialNotes } = require('./test_helper');
 
-describe.only('test suite for database connections', async () => {
+describe('test suite for database connections', async () => {
+
     before(async() => {
-        await NoteService.deleteAll();
+        await clearDB();
         logger.info('DB cleared for database connections test');
     });
+
     after(async() => {
-        await NoteService.deleteAll();
+        await clearDB();
         await disconnectFromDB();
         logger.info('test suite for database connections ran, successfully disconnected from DB');
     });
+
+    beforeEach(async() => {
+        await clearDB();
+    });
+
     it('base route should be successful', async() => {
         await httpTest.get('/')
             .expect(200);
@@ -26,15 +33,30 @@ describe.only('test suite for database connections', async () => {
             .expect('Content-Type', /application\/json/);
     });
     it('save one should work', async() => {
-        const reqBody = {
-            content: 'this is the first note'
-        };
         const postResponse = await httpTest.post('/api')
-            .send(reqBody)
-            .expect(200)
+            .send(initialNotes[0])
+            .expect(201)
             .expect('Content-Type', /application\/json/);
         const searchId = postResponse.body.id;
         const searchedArray = await httpTest.get(`/api/${searchId}`);
-        assert.strictEqual(searchedArray.body[0].content, reqBody.content);
+        assert.strictEqual(searchedArray.body[0].content, initialNotes[0].content);
+    });
+    it('a note without content should not save', async() => {
+        const reqBody = {
+            important: true
+        };
+        await httpTest.post('/api')
+            .send(reqBody)
+            .expect(500);
+        const allNotes = await httpTest.get('/api');
+        assert.strictEqual(allNotes.body.length, 0);
+    });
+    it('multiple correct notes should save', async() => {
+        initialNotes.forEach(async (note) => {
+            await httpTest.post('/api')
+                .send(note);
+        });
+        const allNotes = await httpTest.get('/api');
+        assert.strictEqual(allNotes.body.length, 2);
     });
 });
