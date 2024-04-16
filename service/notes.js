@@ -12,12 +12,12 @@ class NoteService {
         const savedNote = await Note.save();
         return savedNote;
     }
-    async search(key, value) {
-        const searchObject = {};
-        searchObject[key] = value;
-        const foundArray = await Note.find(searchObject);
-        return foundArray;
-    }
+    // async search(key, value) {
+    //     const searchObject = {};
+    //     searchObject[key] = value;
+    //     const foundArray = await Note.find(searchObject);
+    //     return foundArray;
+    // }
 }
 
 module.exports = {

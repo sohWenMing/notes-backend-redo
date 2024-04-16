@@ -49,7 +49,7 @@ const errorLogger = createLogger({
 
 function errorMiddleware(err, req, res, next) {
     errorLogger.error(err.message, { timeStamp: new Date().toISOString(), type: err.name, stack: err.stack });
-    next(err);
+    res.status(500).send(err.message);
 }
 
 module.exports = { http, logger, errorMiddleware, errorLogger };

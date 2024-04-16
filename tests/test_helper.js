@@ -1,4 +1,4 @@
-const{ Note, NoteService } = require('../service/notes');
+const{ NoteService } = require('../service/notes');
 const { logger } = require('../utils/logging/logger');
 
 const initialNotes = [

@@ -9,6 +9,10 @@ const noteSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: Math.random() < 0.5
+    },
+    user: {
+        type: mongoose.ObjectId,
+        ref: 'User'
     }
 });
 noteSchema.set('toJSON', {
