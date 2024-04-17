@@ -4,7 +4,7 @@ const { disconnectFromDB } = require('../db/mongoConnection');
 const app = require('../app');
 const httpTest = require('supertest')(app);
 const { logger } = require('../utils/logging/logger');
-const { clearDB, initialNotes } = require('./test_helper');
+const { clearDB, initialNotes } = require('./notes_test_helper');
 
 describe('test suite for database connections', async () => {
 
@@ -24,7 +24,7 @@ describe('test suite for database connections', async () => {
     });
 
     it('base route should be successful', async() => {
-        await httpTest.get('/')
+        await httpTest.get('/api/notes')
             .expect(200);
     });
     it('call to api route should return application/json', async() => {

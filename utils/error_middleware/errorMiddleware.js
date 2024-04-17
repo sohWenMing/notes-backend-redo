@@ -8,7 +8,7 @@ function logErrorToConsole(err) {
 }
 
 function errorMiddleware(err, req, res, next) {
-    if (process.env.NODE_ENV !== 'test') {
+    if (process.env.NODE_ENV === 'test') {
         logErrorToConsole(err);
         logErrorToFile(err);
     };
