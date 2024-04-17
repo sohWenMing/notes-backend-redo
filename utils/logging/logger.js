@@ -31,7 +31,7 @@ const logger = createLogger({
                 format.errors({ stack: true }),
                 format.printf(({ timestamp, level, message, stack }) => {
                     if(stack) {
-                        return `[${timestamp}] ${level}: ${message}\n${stack}`;
+                        return `[${timestamp}] Level: ${level}\n Error Message: ${message}\n Stack: ${stack}`;
                     }
                     return `[${timestamp}] ${level}: ${message}`;
                 }
@@ -47,9 +47,5 @@ const errorLogger = createLogger({
     transports: [errorFileRotateTransport]
 });
 
-function errorMiddleware(err, req, res, next) {
-    errorLogger.error(err.message, { timeStamp: new Date().toISOString(), type: err.name, stack: err.stack });
-    res.status(500).send(err.message);
-}
 
-module.exports = { http, logger, errorMiddleware, errorLogger };
+module.exports = { http, logger, errorLogger };

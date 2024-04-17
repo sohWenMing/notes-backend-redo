@@ -12,9 +12,12 @@ Content-Type: application/json
     "content" : "this is the first note"
 }
 ###
-POST http://localhost:3000/users
+POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-    "body": "body"
+    "username": "WenMingSoh",
+    "name": "Soh Wen Ming",
+    "password": "Holoq123holoq123"
+
 }

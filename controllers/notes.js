@@ -3,7 +3,7 @@ const noteRouter = express.Router();
 const { NoteService, Note } = require('../service/notes');
 const { logger } = require('../utils/logging/logger');
 
-const baseURL = '/api';
+const baseURL = '/api/notes';
 
 noteRouter.get(baseURL, async (req, res, next) => {
     try {

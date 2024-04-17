@@ -3,19 +3,21 @@ const usersRouter = express.Router();
 const { UserService, User } = require('../service/users');
 const bcrypt = require('bcrypt');
 
+const baseUrl = '/api/users';
 
 
-
-usersRouter.get('/', async(req, res, next) => {
+usersRouter.get(baseUrl, async(req, res, next) => {
     try {
-        res.status(200).send('getting something from /api/users');
+        const allUsers = await UserService.getAll();
+        res.status(200).json(allUsers);
+
     }
     catch(error) {
         next(error);
     }
 });
 
-usersRouter.post('/', async(req, res, next) => {
+usersRouter.post(baseUrl, async(req, res, next) => {
     try {
         const { username, name, password } = req.body;
         const saltRounds = 10;
@@ -27,8 +29,7 @@ usersRouter.post('/', async(req, res, next) => {
                 passwordHash: passwordHash
             });
         const savedUser = await UserService.saveUser(newUser);
-        res.status(200).json(savedUser);
-        next();
+        res.status(201).json(savedUser);
     }
     catch(error) {
         next(error);
