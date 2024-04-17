@@ -7,7 +7,7 @@ const {Note, NoteService } = require('../service/notes');
 const { baseUser, listOfUsers } = require('./user_test_helper');
 const { initialNotes } = require('./notes_test_helper');
 const assert = require('node:assert');
-const { json } = require('express');
+// const { json } = require('express');
 
 describe('test suite for working with users + notes', async() => {
     beforeEach(async () => {
