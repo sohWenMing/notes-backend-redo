@@ -18,6 +18,11 @@ class NoteService {
         const foundArray = await Note.find(searchObject);
         return foundArray;
     }
+
+    async findById(id){
+        const note = await Note.findById(id);
+        return note;
+    }
 }
 
 module.exports = {

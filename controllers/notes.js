@@ -18,7 +18,7 @@ noteRouter.get(baseURL, async (req, res, next) => {
 
 noteRouter.post(baseURL, async (req, res, next) => {
     try {
-        console.log("req body: ", req.body);
+        // console.log("req body: ", req.body);
         const body = req.body;
         const content = body.content;
         const important = body.important ? body.important : undefined;
@@ -40,7 +40,7 @@ noteRouter.post(baseURL, async (req, res, next) => {
         });
 
         const savedNote = await NoteService.save(noteToSave);
-        logger.info('saved note in router: ',savedNote);
+        // logger.info('saved note in router: ',savedNote);
         res.status(201).json(savedNote);
     }
     catch(error) {
