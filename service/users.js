@@ -12,7 +12,7 @@ class UserService {
         logger.info('users table cleared');
     }
     async findById(id) {
-        const foundUser = await User.findById(id);
+        const foundUser = await User.findById(id).populate('notes').exec();
         return foundUser;
     }
     async getAll() {
