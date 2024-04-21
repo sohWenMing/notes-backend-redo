@@ -19,6 +19,13 @@ class UserService {
         const allUsers = await User.find();
         return allUsers;
     }
+    async getUserByUserName(username) {
+        const foundUserArray = await User.find({ 'username': username });
+        if(foundUserArray.length === 0) {
+            return null;
+        }
+        return(foundUserArray[0]);
+    }
 }
 
 module.exports = {

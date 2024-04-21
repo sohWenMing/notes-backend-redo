@@ -21,3 +21,13 @@ Content-Type: application/json
     "password": "Holoq123holoq123"
 
 }
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "WenMingSoh",
+    "password": "12345"
+    
+}

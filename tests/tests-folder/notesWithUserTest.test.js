@@ -1,10 +1,10 @@
 const http = require('../httpModule');
 const { describe, it, after, beforeEach } = require('node:test');
 const { disconnectFromDB } = require('../../db/mongoConnection');
-const { User, UserService } = require('../../service/users.js');
-const { Note, NoteService } = require('../../service/notes.js');
-const { baseUser, listOfUsers, saveAndReturnBaseUserJson } = require('../helpers/user_test_helper');
-const { initialNotes, createInitialNote } = require('../helpers/notes_test_helper');
+const { UserService } = require('../../service/users.js');
+const { NoteService } = require('../../service/notes.js');
+const { saveAndReturnBaseUserJson } = require('../helpers/user_test_helper');
+const { createInitialNote } = require('../helpers/notes_test_helper');
 const assert = require('node:assert');
 
 
