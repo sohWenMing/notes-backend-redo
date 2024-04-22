@@ -1,18 +1,14 @@
-const app = require('../../app');
-const http = require('supertest')(app);
-const { before, it, describe, after, beforeEach } = require('node:test');
+const http = require('../httpModule');
+const { it, describe, after, beforeEach } = require('node:test');
 const assert = require('node:assert');
 const { disconnectFromDB } = require('../../db/mongoConnection');
-const { UserService } = require('../../service/users');
-const { saveAndReturnBaseUserJson } = require('../helpers/user_test_helper');
+const { clearUsersAndCreateBaseUser } = require('../helpers/auth_test_helper');
 const { baseUser } = require('../helpers/user_test_helper');
 
 describe('suite of tests to test login functionality', async() => {
     beforeEach(async() => {
-        await UserService.deleteAll();
-        await saveAndReturnBaseUserJson();
+        await clearUsersAndCreateBaseUser();
         //save the user to database
-
     });
 
     after(async() => {
@@ -27,7 +23,8 @@ describe('suite of tests to test login functionality', async() => {
             })
             .expect(200);
         const resBody = response.body;
-        assert.strictEqual(resBody.username, baseUser.username);
+        const token = resBody.token;
+        assert.notEqual(token, null || undefined || '');
     });
     it('if username not filled in, response should be 400', async() => {
         const response = await http.post('/login')

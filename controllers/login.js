@@ -2,7 +2,6 @@ const express = require('express');
 const loginRouter = express.Router();
 const baseURL = '/login';
 const bcrypt = require('bcrypt');
-const { logger } = require('../utils/logging/logger');
 const { UserService } = require('../service/users');
 const { errorCreateAndThrow } = require('../utils/error_utils/errorUtils');
 const { signToken } = require('../utils/auth/auth');

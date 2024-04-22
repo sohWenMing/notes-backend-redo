@@ -39,6 +39,11 @@
             "date": 1713674560051,
             "name": "/Users/wenmingsoh/notes-backend-redo/utils/logs/errors/error-2024-04-21.log",
             "hash": "b06e1812d08ade1fbfe42fb7e3a474142df288622b3a773944720b5187a71323"
+        },
+        {
+            "date": 1713765589733,
+            "name": "/Users/wenmingsoh/notes-backend-redo/utils/logs/errors/error-2024-04-22.log",
+            "hash": "ca2ef30d0cb49e36a4d3beb55c3ececafe52d7209938eeb544d3f95d9eeaa86d"
         }
     ],
     "hashType": "sha256"

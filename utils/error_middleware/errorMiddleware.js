@@ -8,6 +8,8 @@ function logErrorToConsole(err) {
 }
 
 function errorMiddleware(err, req, res, next) {
+
+    console.log("error middleware getting hit: ", err.name);
     if (process.env.NODE_ENV !== 'test') {
         logErrorToConsole(err);
         logErrorToFile(err);

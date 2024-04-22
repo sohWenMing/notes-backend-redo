@@ -1,8 +1,7 @@
 const express = require('express');
 const noteRouter = express.Router();
 const { NoteService, Note } = require('../service/notes');
-const { UserService } = require('../service/users');
-const { logger } = require('../utils/logging/logger');
+const { verifyToken } = require('../utils/auth/auth');
 
 const baseURL = '/api/notes';
 
@@ -18,25 +17,18 @@ noteRouter.get(baseURL, async (req, res, next) => {
 
 noteRouter.post(baseURL, async (req, res, next) => {
     try {
-        // console.log("req body: ", req.body);
+        const token = req.cookies['notes-token'] || '12345';
+
+        const foundUser = verifyToken(token, next);
         const body = req.body;
         const content = body.content;
         const important = body.important ? body.important : undefined;
-        const userId = body.userId;
-
-        const user = await UserService.findById(userId);
-        if(!user) {
-            const noUserError = new Error;
-            noUserError.name = 'User not found';
-            noUserError.message = `User with id ${userId} could not be found in database`;
-            throw noUserError;
-        }
-        const foundUserId = user._id;
+        const userId = foundUser._id;
 
         const noteToSave = new Note({
             content: content,
             important: important,
-            user: foundUserId
+            user: userId
         });
 
         const savedNote = await NoteService.save(noteToSave);
