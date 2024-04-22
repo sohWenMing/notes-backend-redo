@@ -13,21 +13,28 @@ function errorMiddleware(err, req, res, next) {
         logErrorToFile(err);
     }
     if(err.name === 'MongoServerError' && err.message.includes('E11000 duplicate key error')) {
-        res.status(400).json({ error: `expected username to be unique` });
-        return;
+        return res.status(400).json({ error: `expected username to be unique` });
     }
     if(err.name === 'MandatoryInfoNotEnteredError') {
-        res.status(400).json({ error: err.message });
+        return res.status(400).json({ error: err.message });
     }
     if(err.name === 'UserNotFoundError') {
-        res.status(404).json({ error: err.message });
+        return res.status(404).json({ error: err.message });
     }
     if(err.name === 'WrongPassWordError') {
-        res.status(403).json({ error: err.message });
+        return res.status(403).json({ error: err.message });
     }
-
+    if(err.name === 'JsonWebTokenError') {
+        return res.status(401).json({ error: 'Invalid token' });
+    }
+    if(err.name === 'TokenExpiredError') {
+        return res.status(401).json({ error: 'Token expired.' });
+    }
+    if(err.name === 'UserNotFoundFromToken') {
+        return res.status(400).json({ error: 'There was a problem with the request' });
+    }
     else {
-        res.status(400).send(err.message);
+        return res.status(400).send(err.message);
     }
 }
 

@@ -1,11 +1,11 @@
 const express = require('express');
 const loginRouter = express.Router();
 const baseURL = '/login';
-const jsonwWebToken = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { logger } = require('../utils/logging/logger');
 const { UserService } = require('../service/users');
 const { errorCreateAndThrow } = require('../utils/error_utils/errorUtils');
+const { signToken } = require('../utils/auth/auth');
 
 loginRouter.post(baseURL, async(req, res, next) => {
     try {
@@ -21,7 +21,14 @@ loginRouter.post(baseURL, async(req, res, next) => {
         if(!match) {
             errorCreateAndThrow('WrongPassWordError', 'Username and password do not match');
         }
-        res.status(200).json(foundUser.toJSON());
+        const userCookieData = {
+            username: foundUser.username,
+            name: foundUser.name
+        };
+
+        const token = signToken(userCookieData);
+        res.cookie('notes-token', token);
+        res.status(200).send({ token });
     }
     catch(error) {
         next(error);

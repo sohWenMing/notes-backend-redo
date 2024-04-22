@@ -28,6 +28,5 @@ Content-Type: application/json
 
 {
     "username": "WenMingSoh",
-    "password": "12345"
-    
+    "password": "Holoq123holoq123"
 }
