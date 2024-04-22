@@ -32,7 +32,6 @@ noteRouter.post(baseURL, async (req, res, next) => {
         });
 
         const savedNote = await NoteService.save(noteToSave);
-        // logger.info('saved note in router: ',savedNote);
         res.status(201).json(savedNote);
     }
     catch(error) {

@@ -1,7 +1,6 @@
 const{ NoteService } = require('../../service/notes');
 const { logger } = require('../../utils/logging/logger');
 const { getUserIdString } = require('./user_test_helper');
-const http = require('../httpModule');
 
 const initialNotes = [
     {
